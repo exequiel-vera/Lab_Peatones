@@ -1,5 +1,6 @@
 #................Lectura archivo txt y creación lista de coordenadas..........................
 
+import matplotlib.pyplot as plt
 import numpy as np
 matriz = []
 Coordenadas = []
@@ -76,10 +77,10 @@ valor_xy_mas_repetido, max_frecuencia_XY = encontrar_valor_mas_repetido(frecuenc
 
 #..........................................Resultados............................................................
 
-print(f"El valor de la coordenada de X que más se repite es {valor_x_mas_repetido} y aparece {max_frecuencia_X} veces.")
-print(f"El valor de la coordenada de Y que más se repite es {valor_y_mas_repetido} y aparece {max_frecuencia_Y} veces.")
-print(f"El valor de la coordenada de Z que más se repite es {valor_z_mas_repetido} y aparece {max_frecuencia_Z} veces.")
-print(f"La coordenada X,Y que más se repite es {valor_xy_mas_repetido} y aparece {max_frecuencia_XY} veces.")
+#print(f"El valor de la coordenada de X que más se repite es {valor_x_mas_repetido} y aparece {max_frecuencia_X} veces.")
+#print(f"El valor de la coordenada de Y que más se repite es {valor_y_mas_repetido} y aparece {max_frecuencia_Y} veces.")
+#print(f"El valor de la coordenada de Z que más se repite es {valor_z_mas_repetido} y aparece {max_frecuencia_Z} veces.")
+#print(f"La coordenada X,Y que más se repite es {valor_xy_mas_repetido} y aparece {max_frecuencia_XY} veces.")
 
 #................................funcion para calculo de pendientes......................................
 
@@ -99,7 +100,7 @@ Mx = calcular_pendiente(Xm1, Xp1, Xm2, Xp2)
 My = calcular_pendiente(Ym1, Yp1, Ym2, Yp2)
 #print("La pendiente de y (pixel/metro) es: ", My)
 
-#.....................Conversion coordenada metro a pixel.................................
+#.....................conversion coordenada metro a pixel.................................
 
 def Conversion(CoordenadaMetro):
     Xmetro, Ymetro = CoordenadaMetro
@@ -112,18 +113,41 @@ def Conversion(CoordenadaMetro):
 Matriz640x480 = np.zeros([640 , 480])
 FrecCoordPixel = {(ValorX,ValorY): 0 for ValorX in range(641) for ValorY in range(481)}
 
-#........................traspaso de coordenadas de metro a pixel.............................................
+#........................traspaso de coordenadas XY de metro a pixel.............................................
 
 for coordenada, frecuencia in frecuencia_XY.items():
     CoordenadaPixel = Conversion(coordenada)
     #print(f'La coordenada metrica: {coordenada} pasa a pixel {CoordenadaPixel}' )
     FrecCoordPixel[CoordenadaPixel] = frecuencia
 
-#........................Calculo de Coordenada X,Y mas repetida en PIXEL...........................................
+#............................funcion para convertir coordenadas X e Y de metro a píxeles........................
+def ConversionXY(CoordenadaMetroX, CoordenadaMetroY):
+    Xpixel = int(Mx * CoordenadaMetroX + 320)
+    Ypixel = int(My * CoordenadaMetroY + 480)
+    return Xpixel, Ypixel
+
+#..............................conversion coordenadas X e Y de metro a píxeles y contar frecuencias............................
+
+frecuencia_XY_pixel = {}
+for coordenada, frecuencia in frecuencia_XY.items():
+    CoordenadaPixelX, CoordenadaPixelY = ConversionXY(coordenada[0], coordenada[1])
+    frecuencia_XY_pixel[(CoordenadaPixelX, CoordenadaPixelY)] = frecuencia
+
+
+#........................calculo de Coordenada X,Y mas repetida en PIXEL...........................................
 
 max_frecuenciaPixelXY = max(FrecCoordPixel.values())
 XYPixel_mas_repetida = [CordXY for CordXY, frecuenciaXY in FrecCoordPixel.items() if frecuenciaXY == max_frecuenciaPixelXY]
-print(f"La(s) coordenadas X,Y que más se repite(n): {XYPixel_mas_repetida} con un recuento de {max_frecuenciaPixelXY} oportunidades")
+#print(f"La(s) coordenadas X,Y que más se repite(n): {XYPixel_mas_repetida} con un recuento de {max_frecuenciaPixelXY} oportunidades")
 
+#..............................creacion histograma 2D utilizando Matplotlib.......................................
 
+coordenadas_xy_pixel = np.array(list(frecuencia_XY_pixel.keys()))
+plt.figure(figsize=(10, 8))
+plt.hist2d(coordenadas_xy_pixel[:, 0], coordenadas_xy_pixel[:, 1], bins=33, cmap='inferno')
+plt.colorbar(label='Frecuencia')
+plt.xlabel('Coordenada X (píxeles)')
+plt.ylabel('Coordenada Y (píxeles)')
+plt.title('Histograma 2D de Coordenadas X e Y en Píxeles')
+plt.show()
 
