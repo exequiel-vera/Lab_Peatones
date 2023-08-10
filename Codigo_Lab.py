@@ -2,17 +2,22 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
+from Rendimiento import get_resource_info
 matriz = []
 Coordenadas = []
 Coordenadas_X = []
 Coordenadas_Y = []
 Coordenadas_Z = []
-f = open('Pea.txt', 'r')
-for linea in f.readlines():
-    separar = linea[0:29]
-    aux = separar.split()
-    matriz.append(aux)
-f.close()
+
+def lectura_datos():
+    f = open('UNI_CORR_500_01.txt', 'r')
+    for linea in f.readlines():
+       separar = linea[0:29]
+       aux = separar.split()
+       matriz.append(aux)
+    f.close()
+
+lectura_datos()
 
 #................Crear una matriz para las cordenadas X,Y,Z..................
 
@@ -150,4 +155,6 @@ plt.xlabel('Coordenada X (píxeles)')
 plt.ylabel('Coordenada Y (píxeles)')
 plt.title('Histograma 2D de Coordenadas X e Y en Píxeles')
 plt.show()
+
+get_resource_info(lectura_datos)
 
