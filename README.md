@@ -60,6 +60,7 @@ Se inicia importando las librerías necesarias, en este caso Pandas, Matplotlib 
 |--------------------------------|---------------------------|-------------------------|
 | Lectura Uno (Codigo_Lab.py)    | 0.020186185836791992 seg  | 155.3828125 MB          |
 | Lectura Dos (Codigo_Pandas.py) | 0.01766800880432129 seg   | 151.609375 MB           |
+
 Tabla 1: Comparación eficiencia computacional
 
 Con respecto a la eficiencia computacional, se evaluó la lectura del mismo archivo de texto (UNI_CORR_500_01) utilizando ciclos “FOR” en una primera instancia y luego se procedió con el mismo proceso, pero esta vez con la librería pandas. Se nota una clara eficiencia a la hora de escribir el Código debido a su extensión y legibilidad, siendo claramente mas legible con la librería pandas, además como se muestra en la tabla 1 los números respaldan esto, ya que este Código ocupa menos memoria y además se demora 0,03 segundos menos que el primer Código.
