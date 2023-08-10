@@ -19,6 +19,7 @@ def lectura_datos():
 
 lectura_datos()
 
+
 #................Crear una matriz para las cordenadas X,Y,Z..................
 
 for i in range(4, len(matriz)):

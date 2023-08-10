@@ -1,5 +1,5 @@
 ![Logo UCN](images/60x60-ucn-negro.png)
-# Laboratorio 01: Cálculo de frecuencia peatonal 
+# Laboratorio 02: Visualizar mapas de calor (Histogramas 2D)
 
 
 ## 1. Introducción 
@@ -51,11 +51,28 @@ Se inicia importando las librerías necesarias, en este caso Pandas, Matplotlib 
 ## 4. Resultados obtenidos
 
 
+|       Tipo de Experimento      | Tiempo de ejecucion (seg) |  Memoria utilizada (Mb) |
+|--------------------------------|---------------------------|-------------------------|
+| Lectura Uno (Codigo_Lab.py)    | 0.020186185836791992 seg  | 155.3828125 MB          |
+| Lectura Dos (Codigo_Pandas.py) | 0.01766800880432129 seg   | 151.609375 MB           |
 
- 
+                    Tabla 1: Comparación eficiencia computacional
+
+Con respecto a la eficiencia computacional, se evaluó la lectura del mismo archivo de texto (UNI_CORR_500_01) utilizando ciclos “FOR” en una primera instancia y luego se procedió con el mismo proceso, pero esta vez con la librería pandas. Se nota una clara eficiencia a la hora de escribir el Código debido a su extensión y legibilidad, siendo claramente mas legible con la librería pandas, además como se muestra en la tabla 1 los números respaldan esto, ya que este Código ocupa menos memoria y además se demora 0,03 segundos menos que el primer Código.
+
+<img src="images/comparacion.png" width="300">
+Imagen 1: Comparación HeatMaps
+
+Para el estudio de flujo de personas en pasillos unidireccionales con diferentes tamaños de las puertas de entrada y de salida, se generaron dos histogramas 2D que muestran la distribución del flujo de personas en función de las coordenadas X e Y en el pasillo. Estos histogramas proporcionan la información sobre cómo las variaciones en el diseño del pasillo afectan el comportamiento de las personas y como circulan a lo largo del mismo.
+En el primer histograma que contiene los datos del archivo con una puerta de entrada de 1 metro y una puerta de salida de 5 metros, se observa que el flujo de personas tiende a ser mayor en el centro del pasillo. Esto podría indicar que los individuos tienden a agruparse en el centro debido a la ubicación de las puertas de entrada y salida, lo que podría estar relacionado con la distribución asimétrica de las puertas. Además, se observa un punto en el inicio del pasillo, justo en el centro que está completamente negro, es decir, no está pasando nadie por ahí. Este punto parece ser el resultado de una obstrucción causada por una persona que se quedó parada en ese lugar, bloqueando el paso de los demás.
+Para el segundo histograma se utilizaron los datos del archivo con una puerta de entrada de 5 metros y una puerta de salida de 5 metros, se observa que la distribución del flujo de personas es diferente en comparación con el primer histograma. Aquí, los colores fríos predominan, lo que indica que las personas se distribuyen más uniformemente a lo largo del pasillo. Esto podría sugerir que el diseño de las puertas de entrada y salida más amplias permite un flujo más fluido y sin obstrucciones. Aunque esta distribución uniforme es favorable en términos de un tránsito más ágil y eficiente, también podría significar un mayor uso de recursos y gastos debido a la necesidad de un espacio más amplio.
+La elección del tamaño de las puertas debe ser el óptimo, que busque el equilibrio entre un flujo eficiente y los factores económicos y logísticos, ya que, si bien una distribución uniforme podría ser más eficiente desde el punto de vista del tránsito, podría requerir inversiones adicionales en espacio y recursos.
+
 
 ## 5. Conclusiones
 
+En este laboratorio es posible analizar y reconocer la importancia del estudio del comportamiento y flujo de las personas en diferentes espacios, analizando de manera detallada y visual (a través de los mapas de calor) los patrones de densidad en diferentes diseños de puertas de entrada y salida, los cuales revelaron puntos importantes en cuanto a dicho comportamiento de las personas. El primer histograma resaltó la influencia de la distribución asimétrica de las puertas en la concentración de flujo en el centro del pasillo, así como la posibilidad de obstrucciones puntuales. Por otro lado, el segundo histograma demostró que puertas más amplias favorecen una distribución más uniforme del flujo, aunque podrían requerir una inversión mayor en espacio y recursos.
+La utilización de herramientas como Python, Pandas, Matplotlib y NumPy demostró su eficacia en el procesamiento y análisis de datos, mostrando cómo las librerías pueden mejorar la eficiencia y legibilidad del código. Estos resultados sugieren que la combinación de tecnologías de análisis de datos y visualización puede desempeñar un papel crucial en la toma de decisiones de planificación y en la creación de espacios seguros y eficientes para la circulación de personas en diferentes eventos y situaciones.
 
 
 
