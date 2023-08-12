@@ -90,7 +90,9 @@ def velocidad(x, y, frame):
 
 
 df['velocidad_euclidiana'] = velocidad(df['X'], df['Y'], df['frame'])
+
 df2['velocidad_euclidiana'] = velocidad(df2['X'], df2['Y'], df2['frame'])
+
 
 df = df.dropna()
 df2 = df2.dropna()
@@ -111,7 +113,7 @@ plt.figure(figsize=(10, 6))
 plt.subplot(2, 1, 1)
 plt.boxplot([df_peaton1['velocidad_euclidiana'], df_peaton2['velocidad_euclidiana'],
              df_peaton3['velocidad_euclidiana'], df_peaton4['velocidad_euclidiana']])
-plt.xticks([1, 2, 3, 4], ['Peatón 1', 'Peatón 2', 'Peatón 3', 'Peatón 4'])
+plt.xticks([1, 2, 3, 4], ['Peatón 50', 'Peatón 51', 'Peatón 52', 'Peatón 53'])
 plt.ylim(0,2.8)
 plt.ylabel('Velocidad Euclidiana (m/s)')
 plt.title('Velocidad peatones \"UNI_CORR_500_01\"')
@@ -119,7 +121,7 @@ plt.title('Velocidad peatones \"UNI_CORR_500_01\"')
 plt.subplot(2, 1, 2)
 plt.boxplot([df2_peaton1['velocidad_euclidiana'], df2_peaton2['velocidad_euclidiana'],
              df2_peaton3['velocidad_euclidiana'], df2_peaton4['velocidad_euclidiana']])
-plt.xticks([1, 2, 3, 4], ['Peatón 1', 'Peatón 2', 'Peatón 3', 'Peatón 4'])
+plt.xticks([1, 2, 3, 4], ['Peatón 50', 'Peatón 51', 'Peatón 52', 'Peatón 53'])
 plt.ylabel('Velocidad Euclidiana (m/s)')
 plt.ylim(0,2.8)
 plt.title('Velocidad peatones \"UNI_CORR_500_05\"')
@@ -146,6 +148,6 @@ plt.show()
 
 
 
-
-
+#get_resource_info(lambda: velocidad(df['X'], df['Y'], df['frame']))
+#get_resource_info(lambda: velocidad(df2['X'], df2['Y'], df2['frame']))
 
