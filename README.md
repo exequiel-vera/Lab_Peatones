@@ -78,7 +78,7 @@ Para el segundo histograma se utilizaron los datos del archivo con una puerta de
 La elección del tamaño de las puertas debe ser el óptimo, que busque el equilibrio entre un flujo eficiente y los factores económicos y logísticos, ya que, si bien una distribución uniforme podría ser más eficiente desde el punto de vista del tránsito, podría requerir inversiones adicionales en espacio y recursos.
 
 
-<img src="images/c y b.png" width="600">
+<img src="images/caja.png" width="700">
 Imagen 2: Comparación peatones de forma individual
 
 En la figura es posible apreciar la comparación de distintos gráficos de cajas y bigotes de la velocidad de 4 peatones al azar de cada archivo, donde la línea naranja de la caja indica la mediana de la velocidad (percentil 50%), en general no muestran una tendencia clara de diferencias significativas entre los dos conjuntos de datos. Se puede decir que el promedio de las velocidades de los peatones en el conjunto de datos UNI_CORR_500_01  son más altas que en los del conjunto UNI_CORR_500_05, esto se debe a que la mayoría de los peatones tienden a tener velocidades más altas en el primer conjunto de datos, además, los percentiles 25% y 75% también son más altos en el primer archivo en comparación al segundo, lo que refuerza la observación de que las velocidades son generalmente mayores para la puerta de entrada de 1 metro y la puerta de salida de 5 metros.
@@ -87,7 +87,7 @@ Si bien, ambos conjuntos de datos contienen valores atípicos en las velocidades
 
 En resumen, el análisis de las cajas y bigotes nos proporciona información importante sobre las distribuciones de velocidad de los peatones en diferentes escenarios, lo que podría influir en el comportamiento de las personas y en las distribuciones de velocidad observadas en cada conjunto de datos.
 
-<img src="images/hist 01 y 05.png" width="600">
+<img src="images/hist 01 y 05.png" width="700">
 Imagen 3: Histograma de las velocidades en ambos data frames
 
 Según la información extraída de los documentos se pudo hacer una comparación de la velocidades para ambos casos. En la parte superior tenemos la puerta de 1 y 5 metros respectivamente y en la parte inferior el pasillo con dos puertas de 5 metros.
