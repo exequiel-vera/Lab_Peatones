@@ -4,7 +4,7 @@
 
 ## 1. Introducción 
 
-El estudio del flujo de personas en espacios unidireccionales podría tratarse de un tema fundamental para la planificación urbana y la gestión de multitudes ya que entender cómo se mueven las personas podría garantizar la seguridad, eficiencia y comodidad en diversos escenarios. En este informe, se presenta la primera parte del desarrollo para abordar el dicho problema, con los datos recopilados, los cuales contienen las coordenadas en metros que describen la ruta seguida por las personas, las cuales serán transformadas posteriormente a píxeles, lo que permitirá calcular una matriz de frecuencia que represente la ruta seguida por las personas en términos de píxeles. Para posteriormente graficar los datos a través de un histograma en 2D y realizar el cálculo de las velocidades con la que transitan los peatones por el pasillo.
+El estudio del flujo de personas en espacios unidireccionales podría tratarse de un tema fundamental para la planificación urbana y la gestión de multitudes ya que entender cómo se mueven las personas podría garantizar la seguridad, eficiencia y comodidad en diversos escenarios. En este informe, se presenta la primera parte del desarrollo para abordar el dicho problema, con los datos recopilados, los cuales contienen las coordenadas en metros que describen la ruta seguida por las personas, las cuales serán transformadas posteriormente a píxeles, lo que permitirá calcular una matriz de frecuencia que represente la ruta seguida por las personas en términos de píxeles. Finalmente calcular la distancia euclidiana entre los peatones y sus vecinos más cercanos como parte del análisis del comportamiento, con ello, cuantificar la separación entre los puntos en un espacio bidimensional (coordenadas X e Y de los peatones).
 
 
 
@@ -16,14 +16,14 @@ En situaciones como evacuaciones de emergencia, eventos deportivos o festivales 
 
 **Objetivo general**
 
-Crear un histograma para cada data frame con las velocidades de los peatones.
+Calcular las velocidades de los peatones dada su posición y la distancia euclidiana media de los vecinos más cercanos.
 
  
 **Objetivos específicos**
 
-1. Obtener las velocidades de los peatones.
-2. Comparar las velocidades entre distintos peatones con diagrama de cajas y bigotes.
-3. Analizar y comparar los resultados obtenidos de los diagramas generados.
+1. Utilizar el método KDTree para identificar vecinos más cercanos a cada peatón en cada frame.
+2. Generar un gráfico de dispersión de la distancia promedio vs. velocidad promedio.
+3. Encontrar una función que se ajuste de manera óptima a los datos observados.
 
 
 ## 2. Marco teórico 
@@ -58,7 +58,7 @@ Se inicia importando las librerías necesarias, en este caso Pandas, Matplotlib 
 
 Por último, se debió obtener los parámetros para utilizar la formula de Weidmann donde se utilizarán las velocidades antes calculadas, el desafío implicado en esto es la obtención de SK por cada frame y por cada peatón, esto se llevó a cabo con un doble ciclo for en donde se obtuvo como referencia un peatón y se obtuvo la distancia que tenia respecto a los otros peatones en un radio de 3 metros. Con estos valores se suman las distancias de los vecinos en cada frame y se divide en la cantidad de vecinos y esto por cada frame y cada peatón. Toda la información se almaceno en un nuevo data frame para manipular los datos de manera óptima.
  
-ahora con el sk y las velocidades se creo un scatter plot para ver el comportamiento de los datos, finalmente se hizo un ajuste de curva a través de la función curve fit con una función logarítmica para ver si seguía este ajuste los datos presentes.
+Ahora con el sk y las velocidades se creo un scatter plot para ver el comportamiento de los datos, finalmente se hizo un ajuste de curva a través de la función curve fit con una función logarítmica para ver si seguía este ajuste los datos presentes.
 
 
 
@@ -81,21 +81,20 @@ Imagen 2: Scatter plot de SK v/s Velocidad
 Del scatter plot no se puede obtener gran información, debido a la cantidad enorme de datos no se ve de manera clara si sigue alguna función, ya que solo parece una nube de puntos, lo único que se aprecia es la simetría de los puntos, es decir si trazamos una línea horizontal en esta nube de puntos los datos hacia arriba y hacia debajo de distribuirán de forma simétrica, sin embargo, también podemos notar la presencia de outliers. Para el caso se evaluó una función logarítmica para ver como se ajustaba la curva, dando así los siguientes resultados.
 
 <img src="images/scatter ajuste log.png" width="700">
-Imagen 3: Scatter plot de SK v/s Velocidad Ajustado
+Imagen 3: Scatter plot de SK v/s Velocidad Ajustadob  
 
 Claramente como se aprecia en la imagen la curva no sigue una función logarítmica, mas bien se ve como una función lineal, lo cual puede ser un indicativo que tanto la velocidad como SK se podrían representar a través de una regresión lineal, por lo que podríamos predecir la velocidad a través del SK haciendo su respectiva regresión, además abría que evaluar la calidad del modelo para ver si realmente sigue este ajuste, ya que hay una alta presencia de outliers.
 
 
 ## 5. Conclusiones
 
-En este laboratorio es posible reconocer la relevancia de investigar y comprender el comportamiento y desplazamiento de las personas en distintos entornos. Esto se logra al examinar minuciosamente y de manera visual (mediante mapas de calor) los patrones de densidad en variados diseños de puertas de entrada y salida. Estos análisis revelaron aspectos fundamentales acerca de dicho comportamiento de los peatones. 
+En este laboratorio es posible reconocer la relevancia de investigar y comprender el comportamiento y desplazamiento de las personas en distintos entornos. Esto se logra al examinar minuciosamente y de manera visual (mediante mapas de calor) los patrones de densidad en variados diseños de puertas de entrada y salida. Estos análisis revelaron aspectos fundamentales acerca de dicho comportamiento de los peatones.
 
 La utilización de herramientas como Python, Pandas, Matplotlib y NumPy evidenció su efectividad en el procesamiento y análisis de datos, exhibiendo cómo estas bibliotecas pueden mejorar la eficacia y comprensión del código. Estos resultados insinúan que la combinación de tecnologías para el análisis de datos y su visualización puede desempeñar una función de suma importancia en la toma de decisiones en la planificación y la creación de espacios seguros para la circulación de personas en diversas situaciones y eventos.
 
-Los resultados obtenidos, mostrados en tablas y gráficos, desvelan patrones interesantes en el desplazamiento de personas según el tamaño de las puertas de entrada y salida. Se destacan diferencias notables en la distribución de velocidades y la conducta de los peatones en ambos escenarios examinados ya que en el caso de las puertas de 1 x 5 mts indican una variabilidad y extremos mayores debido a la necesidad de acelerar producto de la congestión por entrada estrecha y una salida amplia, lo que genera un flujo desigual. En contraste, en la configuración de ambas puertas de 5 mts, las velocidades son más homogéneas debido a una entrada y salida amplias y uniformes. Esto también se explica mediante los histogramas generados, ya que ambas presentan una distribución normal en los datos y cómo se forma las campanas de Gauss, la diferencia principal es la velocidad media: 1.5 m/s para la puerta de 1 metro y alrededor de 0.5 m/s para el pasillo con puertas de 5 metros que se debe a lo explicado anteriormente.
+El informe aborda este problema mediante la recopilación de datos de coordenadas que describen la ruta de las personas en términos de píxeles, permitiendo el cálculo de una matriz de frecuencia que representa esta ruta. Además, se calcula la distancia euclidiana entre los peatones y sus vecinos más cercanos para analizar su comportamiento. Para lograr cumplir el objetivo general el cual era calcular las velocidades de los peatones en función de su posición y la distancia media de los vecinos más cercanos, se plantearon objetivos específicos como la identificación de vecinos cercanos utilizando el método KDTree, la generación de gráficos de dispersión para relacionar distancia promedio y velocidad promedio, y encontrar una función que se ajuste a los datos observados. En los resultados obtenidos, se observó que las velocidades de los peatones variaban según el ancho de las puertas. La velocidad promedio en el pasillo con puertas más estrechas fue mayor que en el pasillo con puertas más anchas, posiblemente debido a la densidad de personas y la capacidad de movimiento. Se realizó un scatter plot para relacionar la distancia media de vecinos más cercanos (SK) con la velocidad y aunque inicialmente parecía no seguir una función clara, se probó aplicar distintos tipos de ajuste de curva, como función exponencial y logarítmica pero con ambas se obtuvieron líneas rectas, eso podría indicar que aunque los datos en sí mismos no sigan una tendencia lineal, al aplicar la transformación, los datos se aproximan más a esa relación. Ajustar una curva a estos datos que no presentan un patrón de tendencia claro resultó ser un desafío, ya que no hay una única función que capture todas las posibles variaciones en los datos, sin embargo, en base a todas las funciones probadas, creemos que ajustar una función polinómica de tercer grado (cúbica) fue la opción más razonable ya que aunque no es no lineal, una función polinómica de grado superior es mas compleja y es útil cuando los datos presentan una curva.
 
 En última instancia, este estudio brinda una perspectiva detallada y cuantitativa sobre cómo el diseño del espacio impacta el comportamiento de los individuos en situaciones de flujo unidireccional, lo que podría desempeñar un papel crucial en la toma de decisiones de planificación y en la creación de espacios seguros y eficientes para la circulación de personas en diferentes eventos y situaciones.
-
 
 
 

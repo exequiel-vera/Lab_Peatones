@@ -258,15 +258,3 @@ plt.show()
 print("Parámetros ajustados:")
 print("a:", a_fit)
 print("b:", b_fit)
-
-
-
-
-
-
-
-
-
-
-
-
